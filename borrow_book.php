@@ -1,3 +1,10 @@
+<?php
+include 'includes/db_config.php';
+
+$sql = "SELECT * FROM books";
+$result = mysqli_query($con, $sql);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -17,6 +24,9 @@
             overflow: hidden;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             transition: all 0.3s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
         }
 
         .card:hover {
@@ -82,123 +92,28 @@
 </head>
 
 <body>
-<?php include 'component/header.php'; ?>
+    <?php include 'component/header.php'; ?>
     <div class="container my-5">
-        <div class="row">
-            <!-- Book 1 -->
-            <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-6 col-sm-12 col-xs-12 p-2">
-                <div class="card">
-                    <img src="assets/images/bookimage2.jpg" alt="1984 Book Cover" class="card-img-top">
-                    <div class="card-body">
-                        <h5 class="book-title">1984</h5>
-                        <p class="book-author">by George Orwell</p>
-                        <p class="book-genre">Genre: Dystopian, Political Fiction</p>
-                        <!-- <p class="book-rating">Rating: ★★★★☆ (4.5)</p> -->
-                        <p class="book-description">
-                            A dystopian novel set in a totalitarian society under constant surveillance.
-                        </p>
-                        <p class="availability-status available">Available</p>
-                        <button class="btn btn-primary btn-custom" onclick="borrowBook()">Borrow Book</button>
-                       
+        <div class="row align-items-stretch">
+            <?php while ($row = mysqli_fetch_assoc($result)) { ?>
+                <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-6 col-sm-12 p-2 d-flex">
+                    <div class="card flex-fill">
+                        <img src="assets/images/<?php echo $row['cover_image']; ?>" alt="<?php echo $row['title']; ?> Cover" class="card-img-top">
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="book-title"><?php echo $row['title']; ?></h5>
+                            <p class="book-author">by <?php echo $row['author']; ?></p>
+                            <p class="book-genre">Genre: <?php echo $row['category']; ?></p>
+                            <p class="book-description flex-grow-1"><?php echo $row['description']; ?></p>
+                            <p class="availability-status <?php echo ($row['availability'] == 'Available') ? 'available' : 'unavailable'; ?>">
+                                <?php echo $row['availability']; ?>
+                            </p>
+                            <button class="btn btn-primary btn-custom" onclick="borrowBook()">Borrow Book</button>
+                        </div>
                     </div>
                 </div>
-            </div>
-
-            <!-- Book 2 -->
-            <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-6 col-sm-12 col-xs-12 p-2">
-                <div class="card">
-                    <img src="assets/images/bookimage12.jpg" alt="The Hobbit Book Cover" class="card-img-top">
-                    <div class="card-body">
-                        <h5 class="book-title">The Hobbit</h5>
-                        <p class="book-author">by J.R.R. Tolkien</p>
-                        <p class="book-genre">Genre: Fantasy</p>
-                        <!-- <p class="book-rating">Rating: ★★★★★ (5.0)</p> -->
-                        <p class="book-description">
-                            The adventures of Bilbo Baggins in Middle-earth, discovering treasure and fighting dragons.
-                        </p>
-                        <p class="availability-status unavailable">Borrowed</p>
-                        <button class="btn btn-primary btn-custom" onclick="borrowBook()">Borrow Book</button>
-                       
-                    </div>
-                </div>
-            </div>
-
-            <!-- Book 3 -->
-            <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-6 col-sm-12 col-xs-12 p-2">
-                <div class="card">
-                    <img src="assets/images/bookimage10.jpg" alt="To Kill a Mockingbird Book Cover" class="card-img-top">
-                    <div class="card-body">
-                        <h5 class="book-title">To Kill a Mockingbird</h5>
-                        <p class="book-author">by Harper Lee</p>
-                        <p class="book-genre">Genre: Classic, Historical Fiction</p>
-                        <!-- <p class="book-rating">Rating: ★★★★☆ (4.3)</p> -->
-                        <p class="book-description">
-                            A novel about racial injustice in the deep South during the 1930s, seen through the eyes of a child.
-                        </p>
-                        <p class="availability-status available">Available</p>
-                        <button class="btn btn-primary btn-custom" onclick="borrowBook()">Borrow Book</button>
-                        
-                    </div>
-                </div>
-            </div>
-
-            <!-- Book 4 -->
-            <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-6 col-sm-12 col-xs-12 p-2">
-                <div class="card">
-                    <img src="assets/images/bookimage14.jpg" alt="Pride and Prejudice Book Cover" class="card-img-top">
-                    <div class="card-body">
-                        <h5 class="book-title">Pride and Prejudice</h5>
-                        <p class="book-author">by Jane Austen</p>
-                        <p class="book-genre">Genre: Romance, Classic</p>
-                        <!-- <p class="book-rating">Rating: ★★★★☆ (4.2)</p> -->
-                        <p class="book-description">
-                            A story of love, class, and the pursuit of happiness in 19th-century England.
-                        </p>
-                        <p class="availability-status available">Available</p>
-                        <button class="btn btn-primary btn-custom" onclick="borrowBook()">Borrow Book</button>
-                        
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-6 col-sm-12 col-xs-12 p-2">
-                <div class="card">
-                    <img src="assets/images/bookimage10.jpg" alt="To Kill a Mockingbird Book Cover" class="card-img-top">
-                    <div class="card-body">
-                        <h5 class="book-title">To Kill a Mockingbird</h5>
-                        <p class="book-author">by Harper Lee</p>
-                        <p class="book-genre">Genre: Classic, Historical Fiction</p>
-                        <!-- <p class="book-rating">Rating: ★★★★☆ (4.3)</p> -->
-                        <p class="book-description">
-                            A novel about racial injustice in the deep South during the 1930s, seen through the eyes of a child.
-                        </p>
-                        <p class="availability-status available">Available</p>
-                        <button class="btn btn-primary btn-custom" onclick="borrowBook()">Borrow Book</button>
-                       
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-6 col-sm-12 col-xs-12 p-2">
-                <div class="card">
-                    <img src="assets/images/bookimage11.jpg" alt="To Kill a Mockingbird Book Cover" class="card-img-top">
-                    <div class="card-body">
-                        <h5 class="book-title">To Kill a Mockingbird</h5>
-                        <p class="book-author">by Harper Lee</p>
-                        <p class="book-genre">Genre: Classic, Historical Fiction</p>
-                        <!-- <p class="book-rating">Rating: ★★★★☆ (4.3)</p> -->
-                        <p class="book-description">
-                            A novel about racial injustice in the deep South during the 1930s, seen through the eyes of a child.
-                        </p>
-                        <p class="availability-status available">Available</p>
-                        <button class="btn btn-primary btn-custom" onclick="borrowBook()">Borrow Book</button>
-                        
-                    </div>
-                </div>
-            </div>
-
-            
+            <?php } ?>
         </div>
+
     </div>
     <div class="container py-3 -center">
         <a href="./user_dashboard/userdashboard.php" class="btn btn-secondary">
@@ -206,8 +121,8 @@
         </a>
     </div>
     <div>
-     <?php include 'component/footer.php'; ?>
-     </div>
+        <?php include 'component/footer.php'; ?>
+    </div>
 
     <script>
         function borrowBook() {

@@ -1,3 +1,31 @@
+<?php
+include 'includes/db_config.php';
+
+$mission = '';
+$vision = '';
+$contact = '';
+$team_members = [];
+
+$sql = "SELECT * FROM about_us";
+$result = $con->query($sql);
+
+while ($row = $result->fetch_assoc()) {
+    if ($row['section'] == 'mission') {
+        $mission = $row['content'];
+    } elseif ($row['section'] == 'vision') {
+        $vision = $row['content'];
+    } elseif ($row['section'] == 'contact') {
+        $contact = explode('|', $row['content']);
+    } elseif ($row['section'] == 'team') {
+        $team_members[] = [
+            'name' => $row['team_name'],
+            'image' => $row['team_image']
+        ];
+    }
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -40,7 +68,7 @@
 </head>
 
 <body>
-<?php include 'component/header.php'; ?>
+    <?php include 'component/header.php'; ?>
 
     <!-- Header -->
     <div class="container text-center mt-5">
@@ -52,20 +80,12 @@
     <div class="container mt-5">
         <div class="row text-center">
             <div class="col-md-6">
-                <h3 class="section-title"><i class="fa-solid fa-bullseye me-2" ></i> Our Mission</h3>
-                <p>Our mission is to provide an innovative and user-friendly library experience that meets the needs of our diverse community. We strive to:
-
-                    Offer a wide range of books, digital resources, and multimedia materials.
-
-                    Enhance the accessibility of knowledge through cutting-edge technology and user-focused services.
-
-                    Create a welcoming and inclusive space for learning, research, and cultural enrichment.
-
-                    Support the personal and professional growth of our users by offering programs, workshops, and events that inspire and educate.</p>
+                <h3 class="section-title"><i class="fa-solid fa-bullseye me-2"></i> Our Mission</h3>
+                <p><?php echo $mission; ?></p>
             </div>
             <div class="col-md-6">
-                <h3 class="section-title"><i class="fa-solid fa-eye me-2" ></i> Our Vision</h3>
-                <p>At Our Lib Central Library, our vision is to become a leading digital and physical hub of knowledge and learning, accessible to everyone, everywhere. We aim to empower our community by providing a rich and diverse collection of resources, fostering an environment of intellectual curiosity, and promoting lifelong learning.</p>
+                <h3 class="section-title"><i class="fa-solid fa-eye me-2"></i> Our Vision</h3>
+                <p><?php echo $vision; ?></p>
             </div>
         </div>
     </div>
@@ -74,40 +94,30 @@
     <div class="container mt-5">
         <h3 class="section-title text-center"> Meet Our Team</h3>
         <div class="row text-center">
-            <div class="col-md-4">
-                <div class="card p-3">
-                    <img src="https://via.placeholder.com/100" class="team-img mx-auto" alt="Team Member">
-                    <h5 class="mt-3">Disha Rudakiya</h5>
+            <?php foreach ($team_members as $member): ?>
+                <div class="col-md-4">
+                    <div class="card p-3">
+                        <img src="<?php echo $member['image']; ?>" class="team-img mx-auto" alt="Team Member">
+                        <h5 class="mt-3"><?php echo $member['name']; ?></h5>
+                    </div>
                 </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card p-3">
-                    <img src="https://via.placeholder.com/100" class="team-img mx-auto" alt="Team Member">
-                    <h5 class="mt-3">Mahek Kariyani</h5>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card p-3">
-                    <img src="https://via.placeholder.com/100" class="team-img mx-auto" alt="Team Member">
-                    <h5 class="mt-3">Prarthana </h5>
-                </div>
-            </div>
+            <?php endforeach; ?>
         </div>
     </div>
 
     <!-- Contact Section -->
     <div class="container mt-5 text-center">
         <h3 class="section-title"> Contact Us</h3>
-        <p><i class="fa-solid fa-location-dot me-2"></i> Location: Rajkot, India</p>
-        <p><i class="fa-solid fa-envelope me-2"></i>Email: libcentral@onlinelibrary.com</p>
-        <p><i class="fa-solid fa-phone me-2" ></i> Phone: +91 98765 43210</p>
+        <p><i class="fa-solid fa-location-dot me-2"></i> <?php echo $contact[0]; ?></p>
+        <p><i class="fa-solid fa-envelope me-2"></i> <?php echo $contact[1]; ?></p>
+        <p><i class="fa-solid fa-phone me-2"></i> <?php echo $contact[2]; ?></p>
     </div>
 
     <!-- Footer -->
-     <div>
-     <?php include 'component/footer.php'; ?>
-     </div>
-    
+    <div>
+        <?php include 'component/footer.php'; ?>
+    </div>
+
 </body>
 
 </html>
