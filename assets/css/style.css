@@ -1,0 +1,251 @@
+
+    /* General Body Styling */
+    body {
+        font-family: 'Georgia', serif;
+        margin: 0;
+        padding: 0;
+        background-color: #ffffff;
+        color: #4a4a4a;
+    }
+
+    /* Header */
+    header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px;
+        background-color: #7d01a3;
+        flex-wrap: wrap; /* Allow wrapping on smaller screens */
+    }
+
+    /* Left section (logo and text) */
+    .header-left {
+        display: flex;
+        align-items: center;
+        gap: 15px; /* Adds space between the image and text */
+        color: #fff;
+    }
+
+    .header-left img {
+        max-width: 100%;
+        height: auto;
+        width: 150px;
+    }
+
+    /* Center section (title and description) */
+    .header-center {
+        text-align: center;
+        flex: 1; /* Centers the title and description horizontally */
+    }
+
+    header h1 {
+        margin: 0;
+        font-size: 2.5rem;
+        color: white;
+    }
+
+    header p {
+        margin: 5px 0 0;
+        font-size: 1.2rem;
+        font-style: italic;
+        color: #ffffff;
+    }
+
+    /* Right section (login/register links) */
+    .header-right {
+        display: flex;
+        align-items: center;
+        gap: 2px; /* Adjust space between login and register */
+        color: #fff;
+    }
+
+    .header-right a {
+        color: rgb(243, 237, 237);
+        text-decoration: none;
+        font-size: 1.1rem;
+        font-weight: bold;
+        margin-left: 2px; /* Adjust space between login and register */
+    }
+
+    .header-right a:hover {
+        color: #fff;
+    }
+
+    /* Search bar styling */
+    .search-bar {
+        display: flex;
+        justify-content: center;
+        margin: 20px 0;
+    }
+
+    .search-bar input {
+        width: 60%;
+        padding: 10px;
+        font-size: 1rem;
+        border: 1px solid #e079ff;
+        border-radius: 5px 0 0 5px;
+    }
+
+    .search-bar button {
+        padding: 10px 20px;
+        font-size: 1rem;
+        color: #fff;
+        background-color: #e079ff;
+        border: none;
+        border-radius: 0 5px 5px 0;
+        cursor: pointer;
+    }
+
+    .search-bar button:hover {
+        background-color: #4d328c;
+    }
+
+    /* Responsive Styles */
+    @media (max-width: 768px) {
+        .header-left, .header-center, .header-right {
+            flex: 1 1 100%;
+            text-align: center;
+        }
+
+        .header-left img {
+            width: 120px;
+        }
+
+        .header-center h1 {
+            font-size: 2rem;
+        }
+
+        .header-center p {
+            font-size: 1rem;
+        }
+
+        .search-bar input {
+            width: 80%;
+            max-width: 300px;
+        }
+
+        .header-right a {
+            font-size: 1rem;
+        }
+    }
+
+    @media (max-width: 480px) {
+        header {
+            padding: 10px;
+        }
+
+        .header-left img {
+            width: 100px;
+        }
+
+        .header-center h1 {
+            font-size: 1.6rem;
+        }
+
+        .header-center p {
+            font-size: 0.9rem;
+        }
+
+        .search-bar input {
+            width: 90%;
+            max-width: 250px;
+        }
+
+        .header-right a {
+            font-size: 0.9rem;
+        }
+    }
+
+    /* Navbar */
+    .navbar {
+        background-color: #e18afc;
+        padding: 10px 0;
+    }
+
+    .navbar-nav .nav-link {
+        color: #000;
+        font-size: 1rem;
+        margin: 0 10px;
+    }
+
+    .navbar-nav .nav-link:hover {
+        text-decoration: underline;
+    }
+
+    /* Hero Section */
+    .hero {
+        text-align: center;
+        padding: 100px 20px;
+        background-image: url('../images//home_page.jpg'); /* Replace with actual image path */
+        background-size: contain; /* Adjust the size to fit the content */
+        background-position: center;
+        background-repeat: no-repeat;
+        color: #fff;
+        position: relative;
+    }
+
+    .hero h2 {
+        font-size: 2rem;
+        margin: 0 0 30px;
+    }
+
+    .hero p {
+        font-size: 1.2rem;
+        margin: 0 0 30px;
+    }
+
+    .btn-explore {
+        padding: 12px 20px;
+        font-size: 18px;
+        background-color: #6a1b9a;
+        color: white;
+        border-radius: 10px;
+        border: none;
+        cursor: pointer;
+    }
+
+    .btn-explore:hover {
+        background-color: #4a148c;
+    }
+
+    /* About Section */
+    .about {
+        padding: 30px;
+        text-align: center;
+        max-width: 1200px;
+        margin: 0 auto;
+        background-image: url('path/to/your/about_image.jpg'); /* Replace with actual image path */
+        background-size: contain; /* Adjust the size to fit the content */
+        background-position: center;
+        background-repeat: no-repeat;
+        color: white; /* Adjust text color for contrast */
+    }
+
+    .about p {
+        margin-bottom: 20px;
+        font-size: 1rem;
+    }
+
+    /* Footer */
+    footer {
+        text-align: center;
+        padding: 20px;
+        background-color: #7d01a3;
+        color: #fff;
+    }
+
+    /* Responsive Adjustments */
+    @media (max-width: 768px) {
+        .header h1 {
+            font-size: 2rem;
+        }
+
+        .search-bar input {
+            width: 80%;
+        }
+
+        .navbar-nav {
+            text-align: center;
+        }
+    }
+
